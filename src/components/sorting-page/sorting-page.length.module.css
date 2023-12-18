@@ -10,6 +10,7 @@
 
 .sortedByttons {
   display: flex;
+  border: unset;
 }
 
 .columns {

@@ -10,16 +10,18 @@ import { Direction } from "../../types/direction";
 export const SortingPage: React.FC = () => {
   const [arr, setArr] = useState<Array<number>>([]);
   const [indexes, setIndexes] = useState<Array<number>>([]);
-
-  const bubleSort = (incrise: boolean) => {
+  const [type, setType] = useState<string>("selection");
+  const [modified, setModified] = useState<string>("noneModified");
+  console.log(modified);
+  const bubleSort = (isIncrise: boolean) => {
     let newArr = [...arr];
     let count = 0;
     for (let i = 0; i < newArr.length; i++) {
       for (let j = 0; j < newArr.length; j++) {
         setTimeout(() => {
-          setIndexes([j, j + 1]);
+          setIndexes([j + 1, j + 2, newArr.length - 1 - i]);
         }, 1000 + 1000 * count);
-        if (incrise ? newArr[j] > newArr[j + 1] : newArr[j] < newArr[j + 1]) {
+        if (isIncrise ? newArr[j] > newArr[j + 1] : newArr[j] < newArr[j + 1]) {
           changePosition(newArr, j, j + 1);
           let itermidiateArr = [...newArr];
           setTimeout(() => {
@@ -27,8 +29,45 @@ export const SortingPage: React.FC = () => {
           }, 1000 + 1000 * count);
           count++;
         }
-        setTimeout(() => setIndexes([]), 1000 + 1000 * (count + 1));
       }
+    }
+    setTimeout(() => {
+      setIndexes([]);
+      setModified("modified");
+      console.log("happen");
+    }, 1000 + 1000 * count);
+  };
+
+  const selectionSort = (isIncrise: boolean) => {
+    let newArr = [...arr];
+    for (let i = 0; i < newArr.length; i++) {
+      let min = i;
+      for (let j = i; j < newArr.length; j++) {
+        if (isIncrise ? newArr[j] < newArr[min] : newArr[j] > newArr[min]) {
+          min = j;
+        }
+      }
+      changePosition(newArr, i, min);
+      let copeidArr = [...newArr];
+      setTimeout(() => {
+        isIncrise
+          ? setIndexes([i + 1, min, i + 1])
+          : setIndexes([i - 1, min, i - 1]);
+        setArr(copeidArr);
+      }, 1000 + 1000 * i);
+    }
+    setTimeout(() => {
+      setIndexes([]);
+      setModified("modified");
+    }, 1000 * (newArr.length + 1));
+  };
+
+  const sort = (isIncrise: boolean) => {
+    setModified("loading");
+    if (type === "selection") {
+      selectionSort(isIncrise);
+    } else if (type === "bubble") {
+      bubleSort(isIncrise);
     }
   };
 
@@ -48,6 +87,7 @@ export const SortingPage: React.FC = () => {
   };
 
   const createrandomArr = () => {
+    setModified("noneModified");
     const newArr = [];
     const length = createRandomNumber(3, 17);
     for (let i = 0; i < length; i++) {
@@ -55,42 +95,71 @@ export const SortingPage: React.FC = () => {
     }
     setArr(newArr);
   };
+
+  const color = (i: number): ElementStates => {
+    if (
+      indexes.indexOf(i) !== 2 &&
+      indexes.indexOf(i) >= 0 &&
+      modified !== "modified"
+    ) {
+      return ElementStates.Changing;
+    } else if (
+      (type === "bubble" ? i > indexes[2] : i < indexes[2]) ||
+      modified === "modified"
+    ) {
+      return ElementStates.Modified;
+    } else {
+      return ElementStates.Default;
+    }
+  };
   return (
     <SolutionLayout title="Сортировка массива">
       <div className={styles.container}>
-        <form className={styles.sortedByttons}>
-          <RadioInput name="sorting" label="Выбор" extraClass="mr-10" />
-          <RadioInput name="sorting" label="Пузырек" />
-        </form>
+        <fieldset className={styles.sortedByttons}>
+          <RadioInput
+            name="sorting"
+            label="Выбор"
+            extraClass="mr-10"
+            value="selection"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setType(e.target.value)
+            }
+            defaultChecked
+          />
+          <RadioInput
+            name="sorting"
+            label="Пузырек"
+            value="bubble"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setType(e.target.value)
+            }
+          />
+        </fieldset>
         <div className={styles.sortedByttons}>
           <Button
             text={"По возрастанию"}
             sorting={Direction.Ascending}
             extraClass="mr-6"
-            onClick={() => bubleSort(true)}
+            onClick={() => sort(true)}
+            disabled={modified === "loading"}
           />
           <Button
             text={"По убыванию"}
             sorting={Direction.Descending}
-            onClick={() => bubleSort(false)}
+            onClick={() => sort(false)}
+            disabled={modified === "loading"}
           />
         </div>
         <Button
           text={"Новый массив"}
           extraClass="ml-9"
           onClick={createrandomArr}
+          disabled={modified === "loading"}
         />
       </div>
       <div className={styles.columns + " mt-12"}>
         {arr.map((num, index) => (
-          <Column
-            index={num}
-            state={
-              indexes.indexOf(index) >= 0
-                ? ElementStates.Changing
-                : ElementStates.Default
-            }
-          />
+          <Column key={index} index={num} state={color(index)} />
         ))}
       </div>
     </SolutionLayout>
