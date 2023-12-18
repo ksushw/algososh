@@ -92,7 +92,8 @@ export const QueuePage: React.FC = () => {
             letter={element ? element : ""}
             index={index}
             key={index}
-            tail={tail === index ? String(tail) : ""}
+            head={start === index ? "head" : ""}
+            tail={tail === index ? "tail" : ""}
             state={
               tail === index && amount
                 ? ElementStates.Changing
