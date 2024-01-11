@@ -26,41 +26,49 @@ export const ListPage: React.FC = () => {
   const addNode = (value: string) => {
     const newNode = new Node(value);
     if (!lenght) {
-      setTop(newNode);
-    } else if (lenght === 1) {
-      top.next = newNode;
+      setLenght(lenght + 1);
+      getElements(newNode);
     } else {
       let current = top;
       for (let i = 1; i < lenght; i++) {
         current = current.next;
       }
       current.next = newNode;
+      setLenght(lenght + 1);
+      getElements(top);
     }
-    setLenght(lenght + 1);
-  };
-
-  const unshift = (value: string) => {
-    const newNode = new Node(value);
-    let oldTop = { ...top };
-    newNode.next = oldTop;
-    setTop(newNode);
-  };
-
-  const shift = () => {
-    let secondNode = top.next;
-    setTop(secondNode);
   };
 
   const pop = () => {
-    let current = top;
-    for (let i = 1; i < lenght - 1; i++) {
-      current = current.next;
+    if (lenght !== 1) {
+      let current = top;
+      for (let i = 1; i < lenght - 1; i++) {
+        current = current.next;
+      }
+      current.next = null;
+      getElements(top);
+      setLenght(lenght - 1);
+    } else {
+      getElements(null);
+      setLenght(lenght - 1);
+      return;
     }
-    current.next = null;
-    // setTop(secondNode);
   };
 
-  const getElements = () => {
+  const shift = (value: string) => {
+    const newNode = new Node(value);
+    newNode.next = top;
+    getElements(newNode);
+    setLenght(lenght + 1);
+  };
+
+  const unshift = () => {
+    let secondNode = top.next;
+    getElements(secondNode);
+    setLenght(lenght - 1);
+  };
+
+  const getElements = (top: any) => {
     let curr = top;
     let res = [];
     while (curr) {
@@ -68,6 +76,7 @@ export const ListPage: React.FC = () => {
       curr = curr.next;
     }
     setArr(res);
+    setTop(top);
   };
 
   return (
@@ -87,11 +96,11 @@ export const ListPage: React.FC = () => {
         <Button
           text={"Добавить в head"}
           onClick={() => {
-            unshift(value);
+            shift(value);
           }}
         />
         <Button text={"Добавить в tail"} onClick={() => addNode(value)} />
-        <Button text={"Удалить из head"} onClick={shift} />
+        <Button text={"Удалить из head"} onClick={unshift} />
         <Button text={"Удалить из tail"} onClick={pop} />
         <Input
           placeholder="Введите индекс"
@@ -106,7 +115,6 @@ export const ListPage: React.FC = () => {
         <Button
           text={"Удалить по индексу"}
           extraClass={styles.forthFithColumn}
-          onClick={getElements}
         />
       </div>
       <div className={styles.circles}>
