@@ -7,6 +7,7 @@ import { RadioInput } from "../ui/radio-input/radio-input";
 import { ElementStates } from "../../types/element-states";
 import { Direction } from "../../types/direction";
 import { DELAY_IN_MS } from "../../constants/delays";
+import { BubleSort, SelectionSort, CreaterandomArr } from "../utils/utils";
 
 export const SortingPage: React.FC = () => {
   const [arr, setArr] = useState<Array<number>>([]);
@@ -15,51 +16,33 @@ export const SortingPage: React.FC = () => {
   const [modified, setModified] = useState<string>("noneModified");
 
   const bubleSort = (isIncrise: boolean) => {
-    let newArr = [...arr];
-    let count = 0;
-    for (let i = 0; i < newArr.length; i++) {
-      for (let j = 0; j < newArr.length; j++) {
-        setTimeout(() => {
-          setIndexes([j + 1, j + 2, newArr.length - 1 - i]);
-        }, DELAY_IN_MS + DELAY_IN_MS * count);
-        if (isIncrise ? newArr[j] > newArr[j + 1] : newArr[j] < newArr[j + 1]) {
-          changePosition(newArr, j, j + 1);
-          let itermidiateArr = [...newArr];
-          setTimeout(() => {
-            setArr(itermidiateArr);
-          }, DELAY_IN_MS + DELAY_IN_MS * count);
-          count++;
-        }
-      }
-    }
+    const arraysSorted = BubleSort(arr, isIncrise);
+    arraysSorted.forEach((array, index) => {
+      setTimeout(() => {
+        setIndexes([...array.indexes]);
+        setArr([...array.array]);
+      }, DELAY_IN_MS * index);
+    });
     setTimeout(() => {
       setIndexes([]);
       setModified("modified");
-    }, DELAY_IN_MS + DELAY_IN_MS * count);
+    }, DELAY_IN_MS + DELAY_IN_MS * arraysSorted.length);
   };
 
   const selectionSort = (isIncrise: boolean) => {
-    let newArr = [...arr];
-    for (let i = 0; i < newArr.length; i++) {
-      let min = i;
-      for (let j = i; j < newArr.length; j++) {
-        if (isIncrise ? newArr[j] < newArr[min] : newArr[j] > newArr[min]) {
-          min = j;
-        }
-      }
-      changePosition(newArr, i, min);
-      let copeidArr = [...newArr];
+    const arraysSorted = SelectionSort(arr, isIncrise);
+
+    arraysSorted.forEach((array, index) => {
       setTimeout(() => {
-        isIncrise
-          ? setIndexes([i + 1, min, i + 1])
-          : setIndexes([i - 1, min, i - 1]);
-        setArr(copeidArr);
-      }, DELAY_IN_MS + DELAY_IN_MS * i);
-    }
+        setIndexes([...array.indexes]);
+        setArr([...array.array]);
+      }, DELAY_IN_MS * index);
+    });
+
     setTimeout(() => {
       setIndexes([]);
       setModified("modified");
-    }, DELAY_IN_MS * (newArr.length + 1));
+    }, DELAY_IN_MS * (arraysSorted.length + 1));
   };
 
   const sort = (isIncrise: boolean) => {
@@ -71,28 +54,9 @@ export const SortingPage: React.FC = () => {
     }
   };
 
-  const changePosition = (
-    arr: number[],
-    firstIndex: number,
-    secondIndex: number
-  ): void => {
-    const temp = arr[firstIndex];
-    arr[firstIndex] = arr[secondIndex];
-    arr[secondIndex] = temp;
-  };
-
-  const createRandomNumber = (minLen: number, maxLen: number): number => {
-    maxLen = maxLen + 1;
-    return minLen + Math.floor(Math.random() * (maxLen - minLen));
-  };
-
   const createrandomArr = () => {
     setModified("noneModified");
-    const newArr = [];
-    const length = createRandomNumber(3, 17);
-    for (let i = 0; i < length; i++) {
-      newArr.push(createRandomNumber(1, 100));
-    }
+    const newArr = CreaterandomArr();
     setArr(newArr);
   };
 
@@ -112,6 +76,7 @@ export const SortingPage: React.FC = () => {
       return ElementStates.Default;
     }
   };
+
   return (
     <SolutionLayout title="Сортировка массива">
       <div className={styles.container}>
