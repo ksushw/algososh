@@ -1,13 +1,51 @@
-import React, { useState, ChangeEvent, useEffect } from "react";
+import React, { useState, ChangeEvent } from "react";
 import styles from "./queue-page.module.css";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { ElementStates } from "../../types/element-states";
+import { IQueue } from "../../types/queque";
+
+class Stack<T> implements IQueue<T> {
+  private container: Array<T | ""> = [];
+  private tail: number = -1;
+  private start: number = 0;
+
+  enqueue = (item: T): void => {
+    console.log(item, this.container);
+    if (this.tail >= 6) {
+      this.container[0] = item;
+      this.tail = 0;
+    } else {
+      this.container[this.tail + 1] = item;
+      ++this.tail;
+    }
+  };
+
+  dequeue = (): void => {
+    if (this.getSize()) {
+      this.container[this.start] = "";
+      if (this.start === 6) {
+        this.start = 0;
+      } else {
+        ++this.start;
+      }
+    }
+  };
+
+  peak = () => {
+    this.container = [];
+    this.tail = -1;
+    this.start = 0;
+  };
+
+  getSize = () => this.container.length;
+  getStack = () => this.container;
+}
 
 export const QueuePage: React.FC = () => {
-  const [queue, setQueue] = useState<Array<string | undefined>>([]);
+  const [queue, setQueue] = useState<IQueue<string>>(new Stack());
   const [tail, setTail] = useState<number>(-1);
   const [start, setStart] = useState<number>(0);
   const [amount, setAmount] = useState<number>(0);
@@ -22,44 +60,25 @@ export const QueuePage: React.FC = () => {
   };
 
   const addItem = (item: string) => {
-    let newArr = [...queue];
-    if (tail === 6) {
-      newArr[0] = item;
-    } else {
-      newArr[tail + 1] = item;
-    }
+    queue.enqueue(item);
     setAmount(amount + 1);
     movePosition(tail, setTail);
-    setQueue(newArr);
-    setValue("");
   };
 
   const deleteItem = () => {
+    queue.dequeue();
     movePosition(start, setStart);
-    let newArr = [...queue];
-    newArr[start] = undefined;
-    setQueue(newArr);
     setAmount(amount - 1);
   };
 
   const removeItems = () => {
+    queue.peak();
     setTail(-1);
     setStart(0);
-    setQueue(defoultArr());
     setAmount(0);
   };
 
-  const defoultArr = () => {
-    let newArr = [];
-    for (let i = 0; i <= 6; i++) {
-      newArr[i] = undefined;
-    }
-    return newArr;
-  };
-
-  useEffect(() => {
-    setQueue(defoultArr());
-  }, []);
+  const array = queue.getStack();
 
   return (
     <SolutionLayout title="Очередь">
@@ -87,7 +106,7 @@ export const QueuePage: React.FC = () => {
         />
       </div>
       <div className={styles.circles}>
-        {queue.map((element, index) => (
+        {array.map((element, index) => (
           <Circle
             letter={element ? element : ""}
             index={index}
