@@ -6,13 +6,14 @@ import { Column } from "../ui/column/column";
 import { RadioInput } from "../ui/radio-input/radio-input";
 import { ElementStates } from "../../types/element-states";
 import { Direction } from "../../types/direction";
+import { DELAY_IN_MS } from "../../constants/delays";
 
 export const SortingPage: React.FC = () => {
   const [arr, setArr] = useState<Array<number>>([]);
   const [indexes, setIndexes] = useState<Array<number>>([]);
   const [type, setType] = useState<string>("selection");
   const [modified, setModified] = useState<string>("noneModified");
-  console.log(modified);
+
   const bubleSort = (isIncrise: boolean) => {
     let newArr = [...arr];
     let count = 0;
@@ -20,13 +21,13 @@ export const SortingPage: React.FC = () => {
       for (let j = 0; j < newArr.length; j++) {
         setTimeout(() => {
           setIndexes([j + 1, j + 2, newArr.length - 1 - i]);
-        }, 1000 + 1000 * count);
+        }, DELAY_IN_MS + DELAY_IN_MS * count);
         if (isIncrise ? newArr[j] > newArr[j + 1] : newArr[j] < newArr[j + 1]) {
           changePosition(newArr, j, j + 1);
           let itermidiateArr = [...newArr];
           setTimeout(() => {
             setArr(itermidiateArr);
-          }, 1000 + 1000 * count);
+          }, DELAY_IN_MS + DELAY_IN_MS * count);
           count++;
         }
       }
@@ -34,8 +35,7 @@ export const SortingPage: React.FC = () => {
     setTimeout(() => {
       setIndexes([]);
       setModified("modified");
-      console.log("happen");
-    }, 1000 + 1000 * count);
+    }, DELAY_IN_MS + DELAY_IN_MS * count);
   };
 
   const selectionSort = (isIncrise: boolean) => {
@@ -54,12 +54,12 @@ export const SortingPage: React.FC = () => {
           ? setIndexes([i + 1, min, i + 1])
           : setIndexes([i - 1, min, i - 1]);
         setArr(copeidArr);
-      }, 1000 + 1000 * i);
+      }, DELAY_IN_MS + DELAY_IN_MS * i);
     }
     setTimeout(() => {
       setIndexes([]);
       setModified("modified");
-    }, 1000 * (newArr.length + 1));
+    }, DELAY_IN_MS * (newArr.length + 1));
   };
 
   const sort = (isIncrise: boolean) => {

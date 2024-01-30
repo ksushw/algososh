@@ -5,6 +5,7 @@ import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
+import { DELAY_IN_MS } from "../../constants/delays";
 
 export const StringComponent: React.FC = () => {
   const [string, setString] = useState<string[]>([]);
@@ -49,7 +50,7 @@ export const StringComponent: React.FC = () => {
       let startEnd = end;
       setTimeout(
         () => addNew(sorted, startCopy, startEnd),
-        1000 + 1000 * start
+        DELAY_IN_MS + DELAY_IN_MS * start
       );
       start++;
       end--;
@@ -60,7 +61,7 @@ export const StringComponent: React.FC = () => {
         Math.floor(string.length / 2),
       ]);
       setModified("modified");
-    }, 2000 + 1000 * start);
+    }, (DELAY_IN_MS + start) * DELAY_IN_MS);
   };
 
   const changePosition = (

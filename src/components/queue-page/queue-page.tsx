@@ -13,7 +13,7 @@ export const QueuePage: React.FC = () => {
   const [amount, setAmount] = useState<number>(0);
   const [value, setValue] = useState<string>("");
 
-  const movePosition = (value: number, setter: any) => {
+  const movePosition = (value: number, setter: Function) => {
     if (value === 6) {
       setter(0);
     } else {
@@ -60,7 +60,7 @@ export const QueuePage: React.FC = () => {
   useEffect(() => {
     setQueue(defoultArr());
   }, []);
-  console.log(amount >= 7);
+
   return (
     <SolutionLayout title="Очередь">
       <div className={styles.container}>

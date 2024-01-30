@@ -5,11 +5,12 @@ import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 
 export const FibonacciPage: React.FC = () => {
   const [string, setString] = useState<string>("");
-  const [fibonachi, setFibonachi] = useState<Array<number | string>>([]);
-  const [modified, setModified] = useState<string>("unmodified");
+  const [fibonacci, setFibonacci] = useState<Array<number | string>>([]);
+  const [modified, setModified] = useState("unmodified");
 
   const changeString = (e: ChangeEvent<HTMLInputElement>) => {
     setModified("noneModified");
@@ -22,9 +23,15 @@ export const FibonacciPage: React.FC = () => {
     let arr = canculateFibonacci(number);
     for (let i = 0; i <= arr.length; i++) {
       let newArr = arr.slice(0, i);
-      setTimeout(() => setFibonachi(newArr), 500 + 500 * i);
+      setTimeout(
+        () => setFibonacci(newArr),
+        SHORT_DELAY_IN_MS + SHORT_DELAY_IN_MS * i
+      );
     }
-    setTimeout(() => setModified("modified"), 500 * (arr.length + 1));
+    setTimeout(
+      () => setModified("modified"),
+      SHORT_DELAY_IN_MS * (arr.length + 1)
+    );
   };
 
   const canculateFibonacci = (number: number) => {
@@ -61,8 +68,8 @@ export const FibonacciPage: React.FC = () => {
         />
       </div>
       <div className={styles.circles}>
-        {fibonachi.map((item, index) => (
-          <Circle letter={String(item)} index={index} />
+        {fibonacci.map((item, index) => (
+          <Circle letter={String(item)} index={index} key={index} />
         ))}
       </div>
     </SolutionLayout>

@@ -6,17 +6,18 @@ import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { ArrowIcon } from "../ui/icons/arrow-icon";
 import { ElementStates } from "../../types/element-states";
+import { DELAY_IN_MS } from "../../constants/delays";
 
 class Node<T> {
-  value: T;
-  next: Node<T> | null;
-  constructor(value: T, next?: Node<T> | null) {
+  constructor(value: T, next?: Node<T> | undefined) {
     this.value = value;
-    this.next = next === undefined ? null : next;
+    this.next = next === undefined ? undefined : next;
   }
+  value: T;
+  next: Node<T> | undefined;
 }
 
-type ProccessTypes =
+type ProcessTypes =
   | "Push"
   | "Pop"
   | "Shift"
@@ -29,10 +30,10 @@ export const ListPage: React.FC = () => {
   const [index, setIndex] = useState<number>(-1);
   const [length, setLength] = useState<number>(0);
   const [arr, setArr] = useState<Array<string>>([]);
-  const [top, setTop] = useState<any>();
-  const [changing, setChanging] = useState<Record<number, string> | null>(null);
+  const [top, setTop] = useState<Node<string>>();
+  const [changing, setChanging] = useState<Record<number, string>>();
   const [modified, setModified] = useState<Array<number>>([]);
-  const [proccess, setProccess] = useState<ProccessTypes>();
+  const [proccess, setProccess] = useState<ProcessTypes>();
 
   const push = () => {
     setProccess("Push");
@@ -40,12 +41,16 @@ export const ListPage: React.FC = () => {
     if (!length) {
       getElements(newNode, length - 1, value);
     } else {
-      let current = top;
-      for (let i = 1; i < length; i++) {
-        current = current.next;
+      if (top) {
+        let current = top;
+        for (let i = 1; i < length; i++) {
+          if (current?.next) {
+            current = current.next;
+          }
+        }
+        current.next = newNode;
+        getElements(top, length - 1, value);
       }
-      current.next = newNode;
-      getElements(top, length - 1, value);
     }
 
     setTimeout(() => {
@@ -53,8 +58,8 @@ export const ListPage: React.FC = () => {
 
       setTimeout(() => {
         setModified([]);
-      }, 1000);
-    }, 1000);
+      }, DELAY_IN_MS);
+    }, DELAY_IN_MS);
     setLength(length + 1);
   };
 
@@ -63,15 +68,19 @@ export const ListPage: React.FC = () => {
     makePlace(length - 1);
 
     if (length !== 1) {
-      let current = top;
-      for (let i = 1; i < length - 1; i++) {
-        current = current.next;
+      if (top) {
+        let current = top;
+        for (let i = 1; i < length - 1; i++) {
+          if (current?.next) {
+            current = current.next;
+          }
+        }
+        current.next = undefined;
+        getElements(top, length - 1, value);
+        setChanging({ [length - 1]: current.value });
       }
-      current.next = null;
-      getElements(top, length - 1, value);
-      setChanging({ [length - 1]: current.value });
     } else {
-      getElements(null, length - 1, value);
+      getElements(undefined, length - 1, value);
     }
     setLength(length - 1);
   };
@@ -86,17 +95,20 @@ export const ListPage: React.FC = () => {
       setModified([0]);
       setTimeout(() => {
         setModified([]);
-      }, 1000);
-    }, 1000);
+      }, DELAY_IN_MS);
+    }, DELAY_IN_MS);
     setLength(length + 1);
   };
 
   const unshift = () => {
     setProccess("Unshift");
     makePlace(0);
-    let secondNode = top.next;
-    setChanging({ [0]: top.value });
-    getElements(secondNode, 0, value);
+    if (top?.next) {
+      let secondNode = top.next;
+      setChanging({ [0]: top.value });
+      getElements(secondNode, 0, value);
+    }
+
     setLength(length - 1);
   };
 
@@ -106,20 +118,22 @@ export const ListPage: React.FC = () => {
       shift();
     } else {
       let current = top;
-      for (let i = 0; i <= Number(index) - 2; i++) {
-        current = current.next;
+      if (current) {
+        for (let i = 0; i <= Number(index) - 2; i++) {
+          if (current.next) current = current.next;
+        }
+        const newNode = new Node(value);
+        const rightSide = current.next;
+        current.next = newNode;
+        newNode.next = rightSide;
+
+        doStepAnimation(index);
+
+        setTimeout(() => {
+          setLength(length + 1);
+          getElements(top, index, value);
+        }, DELAY_IN_MS * (index + 1));
       }
-      const newNode = new Node(value);
-      const rightSide = current.next;
-      current.next = newNode;
-      newNode.next = rightSide;
-
-      doStepAnimation(index);
-
-      setTimeout(() => {
-        setLength(length + 1);
-        getElements(top, index, value);
-      }, 1000 * (index + 1));
     }
   };
 
@@ -130,24 +144,28 @@ export const ListPage: React.FC = () => {
     } else {
       let current = top;
 
-      for (let i = 0; i <= Number(index) - 2; i++) {
-        current = current.next;
+      if (current) {
+        for (let i = 0; i <= Number(index) - 2; i++) {
+          if (current?.next) {
+            current = current.next;
+          }
+        }
+        const deletedValue = current?.next?.value;
+        current.next = current?.next?.next;
+
+        doStepAnimation(index);
+
+        setTimeout(() => {
+          makePlace(index);
+          setLength(length - 1);
+          getElements(top, index, deletedValue ? deletedValue : "");
+        }, DELAY_IN_MS * index);
       }
-      const deletedValue = current.next.value;
-      current.next = current.next.next;
-
-      doStepAnimation(index);
-
-      setTimeout(() => {
-        makePlace(index);
-        setLength(length - 1);
-        getElements(top, index, deletedValue);
-      }, 1000 * index);
     }
   };
 
   const getElements = (
-    top: Node<string> | null,
+    top: Node<string> | undefined,
     index: number,
     value: string
   ) => {
@@ -161,11 +179,11 @@ export const ListPage: React.FC = () => {
     setTimeout(() => {
       setArr(res);
       setTop(top);
-      setChanging(null);
+      setChanging(undefined);
       setValue("");
       setIndex(-1);
       setProccess(undefined);
-    }, 1000);
+    }, DELAY_IN_MS);
   };
 
   // animation functions
@@ -181,12 +199,12 @@ export const ListPage: React.FC = () => {
       setTimeout(() => {
         indexes.push(j);
         setModified([...indexes]);
-      }, 1000 * j);
+      }, DELAY_IN_MS * j);
     }
 
     setTimeout(() => {
       setModified([]);
-    }, 1000 * (index + 1));
+    }, DELAY_IN_MS * (index + 1));
   };
 
   return (
@@ -206,33 +224,25 @@ export const ListPage: React.FC = () => {
         />
         <Button
           text={"Добавить в head"}
-          onClick={() => {
-            shift();
-          }}
+          onClick={shift}
           disabled={value.trim() == "" || Boolean(proccess)}
           isLoader={proccess === "Shift"}
         />
         <Button
           text={"Добавить в tail"}
-          onClick={() => {
-            push();
-          }}
+          onClick={push}
           disabled={value.trim() == "" || Boolean(proccess)}
           isLoader={proccess === "Push"}
         />
         <Button
           text={"Удалить из head"}
-          onClick={() => {
-            unshift();
-          }}
+          onClick={unshift}
           disabled={length <= 0 || Boolean(proccess)}
           isLoader={proccess === "Unshift"}
         />
         <Button
           text={"Удалить из tail"}
-          onClick={() => {
-            pop();
-          }}
+          onClick={pop}
           disabled={length <= 0 || Boolean(proccess)}
           isLoader={proccess === "Pop"}
         />
@@ -246,19 +256,14 @@ export const ListPage: React.FC = () => {
         <Button
           text={"Добавить по индексу"}
           extraClass={styles.secodThirdColumn}
-          onClick={() => {
-            addByIndex();
-          }}
+          onClick={addByIndex}
           disabled={value.trim() == "" || index <= 0 || Boolean(proccess)}
           isLoader={proccess === "AddByIndex"}
         />
         <Button
           text={"Удалить по индексу"}
           extraClass={styles.forthFithColumn}
-          onClick={() => {
-            removeByIndex();
-            setValue("");
-          }}
+          onClick={removeByIndex}
           disabled={index <= 0 || length <= 0 || Boolean(proccess)}
           isLoader={proccess === "RemoveByIndex"}
         />
