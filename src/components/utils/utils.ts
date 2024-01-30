@@ -1,5 +1,6 @@
 import { ElementStates } from "../../types/element-states";
 
+//String
 export function ReverseString(string: string[]) {
   const resultArray = [];
   let start = 0;
@@ -37,4 +38,20 @@ export const BackStringColour = (
   } else {
     return ElementStates.Default;
   }
+};
+
+//Fibonacci
+export const CanculateFibonacci = (number: number) => {
+  if (number < 2) {
+    return number === 1 ? [1] : [];
+  }
+  let arr = [1, 1];
+  let ammount = number - 2;
+  let lenght = arr.length;
+  while (ammount) {
+    arr[lenght] = arr[lenght - 1] + arr[lenght - 2];
+    ammount--;
+    lenght++;
+  }
+  return arr;
 };

@@ -4,8 +4,9 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
-import { ElementStates } from "../../types/element-states";
+// import { ElementStates } from "../../types/element-states";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { CanculateFibonacci } from "../utils/utils";
 
 export const FibonacciPage: React.FC = () => {
   const [string, setString] = useState<string>("");
@@ -20,7 +21,7 @@ export const FibonacciPage: React.FC = () => {
 
   const calculate = (number: number): void => {
     setModified("loading");
-    let arr = canculateFibonacci(number);
+    let arr = CanculateFibonacci(number);
     for (let i = 0; i <= arr.length; i++) {
       let newArr = arr.slice(0, i);
       setTimeout(
@@ -32,21 +33,6 @@ export const FibonacciPage: React.FC = () => {
       () => setModified("modified"),
       SHORT_DELAY_IN_MS * (arr.length + 1)
     );
-  };
-
-  const canculateFibonacci = (number: number) => {
-    if (number < 2) {
-      return number === 1 ? [1] : [];
-    }
-    let arr = [1, 1];
-    let ammount = number - 2;
-    let lenght = arr.length;
-    while (ammount) {
-      arr[lenght] = arr[lenght - 1] + arr[lenght - 2];
-      ammount--;
-      lenght++;
-    }
-    return arr;
   };
 
   return (
