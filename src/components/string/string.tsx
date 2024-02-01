@@ -6,7 +6,7 @@ import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 
 import { DELAY_IN_MS } from "../../constants/delays";
-import { ReverseString, BackStringColour } from "../utils/utils";
+import { ReverseString, BackStringColour } from "./utils";
 
 export const StringComponent: React.FC = () => {
   const [string, setString] = useState<string[]>([]);

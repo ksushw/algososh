@@ -7,7 +7,7 @@ import { RadioInput } from "../ui/radio-input/radio-input";
 import { ElementStates } from "../../types/element-states";
 import { Direction } from "../../types/direction";
 import { DELAY_IN_MS } from "../../constants/delays";
-import { BubleSort, SelectionSort, CreaterandomArr } from "../utils/utils";
+import { BubleSort, SelectionSort, CreaterandomArr } from "./utils";
 
 export const SortingPage: React.FC = () => {
   const [arr, setArr] = useState<Array<number>>([]);

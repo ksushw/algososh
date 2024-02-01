@@ -5,7 +5,7 @@ import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
-import { CanculateFibonacci } from "../utils/utils";
+import { CanculateFibonacci } from "./utils";
 
 export const FibonacciPage: React.FC = () => {
   const [string, setString] = useState<string>("");
