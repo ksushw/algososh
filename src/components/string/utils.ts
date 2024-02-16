@@ -1,6 +1,9 @@
 import { ElementStates } from "../../types/element-states";
 
 export function ReverseString(string: string[]) {
+  if (string.length <= 1) {
+    return [[...string]];
+  }
   const resultArray = [];
   let start = 0;
   let end = string.length - 1;
@@ -12,6 +15,7 @@ export function ReverseString(string: string[]) {
     start++;
     end--;
   }
+
   return resultArray;
 }
 
