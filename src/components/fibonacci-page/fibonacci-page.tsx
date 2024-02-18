@@ -49,7 +49,8 @@ export const FibonacciPage: React.FC = () => {
           text={"Рассчитать"}
           onClick={() => calculate(Number(string))}
           isLoader={modified === "loading"}
-          disabled={modified === "modified"}
+          disabled={modified === "modified" || !string.length}
+          extraClass="calculate_button"
         />
       </div>
       <div className={styles.circles}>
