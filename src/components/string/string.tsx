@@ -32,7 +32,6 @@ export const StringComponent: React.FC = () => {
   const reverseString = () => {
     setModified("loading");
     const allString = ReverseString(string);
-    console.log(allString);
     let start = 0;
     let end = string.length - 1;
 
@@ -68,7 +67,8 @@ export const StringComponent: React.FC = () => {
           text={"Развернуть"}
           onClick={reverseString}
           isLoader={modified === "loading"}
-          disabled={modified === "modified"}
+          disabled={modified === "modified" || !string.length}
+          extraClass="button_reverse"
         />
       </div>
       <div className={styles.circles}>
