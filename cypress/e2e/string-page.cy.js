@@ -1,4 +1,4 @@
-describe("template spec", () => {
+describe("should cheeck disable button", () => {
   beforeEach(function () {
     cy.visit("http://localhost:3000/recursion");
   });

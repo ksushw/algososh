@@ -68,12 +68,22 @@ export const StackPage: React.FC = () => {
             setValue(e.target.value)
           }
         />
-        <Button text={"Добавить"} disabled={!value.length} onClick={addItem} />
-        <Button text={"Удалить"} disabled={amount < 1} onClick={deleteItem} />
+        <Button
+          text={"Добавить"}
+          disabled={!value.length}
+          onClick={addItem}
+          extraClass="add_button"
+        />
+        <Button
+          text={"Удалить"}
+          disabled={amount < 1}
+          onClick={deleteItem}
+          extraClass="delete_button"
+        />
         <Button
           onClick={removeItems}
           text={"Очистить"}
-          extraClass={styles.lastButton}
+          extraClass={styles.lastButton + " remove_button"}
           disabled={amount < 1}
         />
       </div>
