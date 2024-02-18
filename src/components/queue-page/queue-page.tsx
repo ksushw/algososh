@@ -96,11 +96,17 @@ export const QueuePage: React.FC = () => {
           text={"Добавить"}
           onClick={() => addItem(value)}
           disabled={amount >= 7 || !value.length}
+          extraClass="add_button"
         />
-        <Button text={"Удалить"} onClick={deleteItem} disabled={amount < 1} />
+        <Button
+          text={"Удалить"}
+          onClick={deleteItem}
+          disabled={amount < 1}
+          extraClass="delete_button"
+        />
         <Button
           text={"Очистить"}
-          extraClass={styles.lastButton}
+          extraClass={styles.lastButton + " remove_button"}
           onClick={removeItems}
           disabled={amount < 1}
         />
