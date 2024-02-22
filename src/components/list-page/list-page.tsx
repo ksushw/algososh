@@ -196,30 +196,35 @@ export const ListPage: React.FC = () => {
             setValue(e.target.value)
           }
           disabled={Boolean(proccess)}
+          extraClass="value_input"
         />
         <Button
           text={"Добавить в head"}
           onClick={shift}
           disabled={value.trim() == "" || Boolean(proccess)}
           isLoader={proccess === "Shift"}
+          extraClass="add_head_button"
         />
         <Button
           text={"Добавить в tail"}
           onClick={push}
           disabled={value.trim() == "" || Boolean(proccess)}
           isLoader={proccess === "Push"}
+          extraClass="add_tail_button"
         />
         <Button
           text={"Удалить из head"}
           onClick={unshift}
           disabled={length <= 0 || Boolean(proccess)}
           isLoader={proccess === "Unshift"}
+          extraClass="remove_head_button"
         />
         <Button
           text={"Удалить из tail"}
           onClick={pop}
           disabled={length <= 0 || Boolean(proccess)}
           isLoader={proccess === "Pop"}
+          extraClass="remove_tail_button"
         />
         <Input
           placeholder="Введите индекс"
@@ -228,10 +233,11 @@ export const ListPage: React.FC = () => {
           }
           disabled={Boolean(proccess)}
           type="number"
+          extraClass="index_input"
         />
         <Button
           text={"Добавить по индексу"}
-          extraClass={styles.secodThirdColumn}
+          extraClass={styles.secodThirdColumn + " add_by_index_button"}
           onClick={addByIndex}
           disabled={
             value.trim() == "" ||
@@ -243,7 +249,7 @@ export const ListPage: React.FC = () => {
         />
         <Button
           text={"Удалить по индексу"}
-          extraClass={styles.forthFithColumn}
+          extraClass={styles.forthFithColumn + " remove_by_index_button"}
           onClick={removeByIndex}
           disabled={
             index < 0 ||
@@ -259,6 +265,7 @@ export const ListPage: React.FC = () => {
           <>
             {changing && index in changing ? (
               <Circle
+                extraClass={`circle_${index}`}
                 key={index}
                 letter={el}
                 index={index}
@@ -272,6 +279,7 @@ export const ListPage: React.FC = () => {
               />
             ) : (
               <Circle
+                extraClass={`circle_${index}`}
                 key={index}
                 state={
                   modified.includes(index)

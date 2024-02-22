@@ -52,6 +52,7 @@ export const StringComponent: React.FC = () => {
       ]);
       setModified("modified");
     }, (1 + start) * DELAY_IN_MS);
+    console.log("end");
   };
 
   return (
@@ -77,6 +78,7 @@ export const StringComponent: React.FC = () => {
             letter={item}
             state={BackStringColour(index, indexes, modified)}
             key={index}
+            extraClass={`circle_${index + 1}`}
           />
         ))}
       </div>
