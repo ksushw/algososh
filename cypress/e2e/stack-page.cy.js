@@ -24,7 +24,7 @@ describe("should cheeck disabled buttons", () => {
     cy.get("div[class*=circle_circle]").not("contain", "12");
   });
 
-  it("should correctly delete element from stack", () => {
+  it("should correctly add element in stack", () => {
     cy.get("input").type("1");
     cy.get(".add_button").click();
 
