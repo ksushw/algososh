@@ -265,7 +265,7 @@ export const ListPage: React.FC = () => {
           <>
             {changing && index in changing ? (
               <Circle
-                extraClass={`circle_${index}`}
+                extraClass={`circle_${index + 1}`}
                 key={index}
                 letter={el}
                 index={index}
@@ -279,7 +279,7 @@ export const ListPage: React.FC = () => {
               />
             ) : (
               <Circle
-                extraClass={`circle_${index}`}
+                extraClass={`circle_${index + 1}`}
                 key={index}
                 state={
                   modified.includes(index)

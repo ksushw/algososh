@@ -1,4 +1,4 @@
-describe("should cheeck disabled buttons", () => {
+describe("should cheeck logic and animation stack", () => {
   beforeEach(function () {
     cy.visit("http://localhost:3000/stack");
     cy.get("input").clear("");
