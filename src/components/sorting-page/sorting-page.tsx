@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import styles from "./sorting-page.length.module.css";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
@@ -15,6 +15,10 @@ export const SortingPage: React.FC = () => {
   const [indexes, setIndexes] = useState<Array<number>>([]);
   const [type, setType] = useState<string>("selection");
   const [modified, setModified] = useState<string>("noneModified");
+
+  useEffect(() => {
+    createrandomArr();
+  }, []);
 
   const bubleSort = (isIncrise: boolean) => {
     const arraysSorted = BubleSort(arr, isIncrise);
