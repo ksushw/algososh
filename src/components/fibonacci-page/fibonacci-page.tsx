@@ -15,7 +15,7 @@ export const FibonacciPage: React.FC = () => {
 
   const changeString = (e: ChangeEvent<HTMLInputElement>) => {
     setModified("noneModified");
-    const newValue = e.target.value.length === 19 ? string : e.target.value;
+    const newValue = Number(e.target.value) > 19 ? string : e.target.value;
     setString(newValue);
   };
 
