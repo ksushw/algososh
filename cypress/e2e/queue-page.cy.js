@@ -1,6 +1,6 @@
 describe("should cheeck logic and animation queue", () => {
   beforeEach(function () {
-    cy.visit("http://localhost:3000/queue");
+    cy.visit("queue");
     cy.get("input").clear("");
   });
 

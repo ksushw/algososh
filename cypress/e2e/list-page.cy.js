@@ -1,6 +1,6 @@
 describe("should cheeck disabled buttons", () => {
   beforeEach(function () {
-    cy.visit("http://localhost:3000/list");
+    cy.visit("list");
     cy.get(".value_input > input").type("1");
     cy.get(".add_tail_button").click();
 

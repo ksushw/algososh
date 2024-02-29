@@ -1,6 +1,6 @@
 describe("should cheeck disablead button string page", () => {
   before(function () {
-    cy.visit("http://localhost:3000/recursion");
+    cy.visit("recursion");
     cy.get("input").clear("");
   });
 
@@ -11,7 +11,7 @@ describe("should cheeck disablead button string page", () => {
 
 describe("should cheeck string page", () => {
   before(function () {
-    cy.visit("http://localhost:3000/recursion");
+    cy.visit("recursion");
     cy.get("input").type("privet");
     cy.get(".button_reverse").click();
   });

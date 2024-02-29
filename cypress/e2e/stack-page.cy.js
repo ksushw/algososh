@@ -1,6 +1,6 @@
 describe("should cheeck logic and animation stack", () => {
   beforeEach(function () {
-    cy.visit("http://localhost:3000/stack");
+    cy.visit("stack");
     cy.get("input").clear("");
   });
 

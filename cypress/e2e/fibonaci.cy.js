@@ -1,6 +1,6 @@
 describe("should cheeck animation and logic fibonaci", () => {
   beforeEach(function () {
-    cy.visit("http://localhost:3000/fibonacci");
+    cy.visit("fibonacci");
   });
 
   it("should cheeck disabled buttons", () => {
