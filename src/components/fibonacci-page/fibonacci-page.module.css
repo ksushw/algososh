@@ -1,0 +1,15 @@
+.container {
+  max-width: 567px;
+  display: grid;
+  grid-template-columns: auto min-content;
+  gap: 12px;
+  margin: 0 auto;
+}
+
+.circles {
+  margin: 46px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 48px 16px;
+}

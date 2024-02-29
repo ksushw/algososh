@@ -1,0 +1,27 @@
+.container {
+  margin: 0 auto;
+  width: max-content;
+  display: grid;
+  grid-template-columns: repeat(5, max-content);
+  grid-template-rows: repeat(2, min-content);
+  gap: 12px;
+}
+
+.secodThirdColumn {
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+.forthFithColumn {
+  grid-column-start: 4;
+  grid-column-end: 6;
+}
+
+.circles {
+  margin: 90px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 48px 16px;
+}
