@@ -6,6 +6,7 @@ import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { ElementStates } from "../../types/element-states";
 import { IQueue } from "../../types/queque";
+import uuid from "react-uuid";
 
 class Stack<T> implements IQueue<T> {
   private container: Array<T | ""> = [];
@@ -116,7 +117,7 @@ export const QueuePage: React.FC = () => {
           <Circle
             letter={element ? element : ""}
             index={index}
-            key={index}
+            key={uuid()}
             head={start === index ? "head" : ""}
             tail={tail === index ? "tail" : ""}
             state={

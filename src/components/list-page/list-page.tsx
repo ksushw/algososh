@@ -16,6 +16,7 @@ import {
   RemoveByIndex,
   ReturnArrayFromNode,
 } from "./utils";
+import uuid from "react-uuid";
 
 class Node<T> {
   constructor(value: T, next?: Node<T> | undefined) {
@@ -262,11 +263,10 @@ export const ListPage: React.FC = () => {
       </div>
       <div className={styles.circles}>
         {arr.map((el, index) => (
-          <>
+          <div key={uuid()} className={styles.circleWithArrow}>
             {changing && index in changing ? (
               <Circle
                 extraClass={`circle_${index + 1}`}
-                key={index}
                 letter={el}
                 index={index}
                 head={
@@ -280,7 +280,6 @@ export const ListPage: React.FC = () => {
             ) : (
               <Circle
                 extraClass={`circle_${index + 1}`}
-                key={index}
                 state={
                   modified.includes(index)
                     ? ElementStates.Modified
@@ -309,7 +308,7 @@ export const ListPage: React.FC = () => {
               />
             )}
             <ArrowIcon />
-          </>
+          </div>
         ))}
       </div>
     </SolutionLayout>

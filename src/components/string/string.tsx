@@ -7,6 +7,7 @@ import { Circle } from "../ui/circle/circle";
 
 import { DELAY_IN_MS } from "../../constants/delays";
 import { ReverseString, BackStringColour } from "./utils";
+import uuid from "react-uuid";
 
 export const StringComponent: React.FC = () => {
   const [string, setString] = useState<string[]>([]);
@@ -77,7 +78,7 @@ export const StringComponent: React.FC = () => {
           <Circle
             letter={item}
             state={BackStringColour(index, indexes, modified)}
-            key={index}
+            key={uuid()}
             extraClass={`circle_${index + 1}`}
           />
         ))}

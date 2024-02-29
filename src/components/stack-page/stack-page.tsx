@@ -7,6 +7,7 @@ import { Input } from "../ui/input/input";
 import { ElementStates } from "../../types/element-states";
 import { IStack } from "../../types/stack";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import uuid from "react-uuid";
 
 class Stack<T> implements IStack<T> {
   private container: T[] = [];
@@ -102,7 +103,7 @@ export const StackPage: React.FC = () => {
           <Circle
             letter={element ? element : ""}
             index={index}
-            key={index}
+            key={uuid()}
             head={index === 0 ? "top" : ""}
             tail={tail === index ? "tail" : ""}
             state={

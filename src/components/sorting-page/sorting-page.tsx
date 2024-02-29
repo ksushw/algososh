@@ -8,6 +8,7 @@ import { ElementStates } from "../../types/element-states";
 import { Direction } from "../../types/direction";
 import { DELAY_IN_MS } from "../../constants/delays";
 import { BubleSort, SelectionSort, CreaterandomArr } from "./utils";
+import uuid from "react-uuid";
 
 export const SortingPage: React.FC = () => {
   const [arr, setArr] = useState<Array<number>>([]);
@@ -124,7 +125,7 @@ export const SortingPage: React.FC = () => {
       </div>
       <div className={styles.columns + " mt-12"}>
         {arr.map((num, index) => (
-          <Column key={index} index={num} state={color(index)} />
+          <Column key={uuid()} index={num} state={color(index)} />
         ))}
       </div>
     </SolutionLayout>

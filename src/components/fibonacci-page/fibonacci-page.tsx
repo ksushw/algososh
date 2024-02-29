@@ -6,6 +6,7 @@ import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { CanculateFibonacci } from "./utils";
+import uuid from "react-uuid";
 
 export const FibonacciPage: React.FC = () => {
   const [string, setString] = useState<string>("");
@@ -55,7 +56,7 @@ export const FibonacciPage: React.FC = () => {
       </div>
       <div className={styles.circles}>
         {fibonacci.map((item, index) => (
-          <Circle letter={String(item)} index={index} key={index} />
+          <Circle letter={String(item)} index={index} key={uuid()} />
         ))}
       </div>
     </SolutionLayout>
