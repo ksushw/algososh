@@ -31,14 +31,18 @@ class Stack<T> implements IStack<T> {
   getStack = () => this.container;
 }
 
+type ProcessTypes = "Add" | "Delete" | "Remove";
+
 export const StackPage: React.FC = () => {
   const [queue, setQueue] = useState<IStack<string>>(new Stack());
   const [tail, setTail] = useState<number>(-1);
   const [changing, setChanging] = useState<number>(-1);
   const [amount, setAmount] = useState<number>(0);
   const [value, setValue] = useState<string>("");
+  const [proccess, setProccess] = useState<ProcessTypes>();
 
   const addItem = () => {
+    setProccess("Add");
     queue.push(value);
     console.log(queue.getStack());
     setAmount(amount + 1);
@@ -46,23 +50,30 @@ export const StackPage: React.FC = () => {
     setChanging(tail + 1);
     setTimeout(() => {
       setChanging(-1);
+      setProccess(undefined);
     }, SHORT_DELAY_IN_MS);
   };
 
   const deleteItem = () => {
+    setProccess("Delete");
     queue.pop();
     setAmount(amount - 1);
     setTail(tail - 1);
     setChanging(tail - 1);
     setTimeout(() => {
       setChanging(-1);
+      setProccess(undefined);
     }, SHORT_DELAY_IN_MS);
   };
 
   const removeItems = () => {
+    setProccess("Remove");
     queue.peak();
     setAmount(0);
     setTail(-1);
+    setTimeout(() => {
+      setProccess(undefined);
+    }, SHORT_DELAY_IN_MS);
   };
 
   const array = queue.getStack();
@@ -81,21 +92,24 @@ export const StackPage: React.FC = () => {
         />
         <Button
           text={"Добавить"}
-          disabled={!value.length}
+          disabled={!value.length || Boolean(proccess)}
           onClick={addItem}
           extraClass="add_button"
+          isLoader={proccess === "Add"}
         />
         <Button
           text={"Удалить"}
-          disabled={amount < 1}
+          disabled={amount < 1 || Boolean(proccess)}
           onClick={deleteItem}
           extraClass="delete_button"
+          isLoader={proccess === "Delete"}
         />
         <Button
           onClick={removeItems}
           text={"Очистить"}
           extraClass={styles.lastButton + " remove_button"}
-          disabled={amount < 1}
+          disabled={amount < 1 || Boolean(proccess)}
+          isLoader={proccess === "Remove"}
         />
       </div>
       <div className={styles.circles}>

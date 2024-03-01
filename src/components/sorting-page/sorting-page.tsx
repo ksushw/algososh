@@ -10,11 +10,14 @@ import { DELAY_IN_MS } from "../../constants/delays";
 import { BubleSort, SelectionSort, CreaterandomArr } from "./utils";
 import uuid from "react-uuid";
 
+type ProcessTypes = "Increase" | "Decrease";
+
 export const SortingPage: React.FC = () => {
   const [arr, setArr] = useState<Array<number>>([]);
   const [indexes, setIndexes] = useState<Array<number>>([]);
   const [type, setType] = useState<string>("selection");
   const [modified, setModified] = useState<string>("noneModified");
+  const [proccess, setProccess] = useState<ProcessTypes>();
 
   useEffect(() => {
     createrandomArr();
@@ -31,6 +34,7 @@ export const SortingPage: React.FC = () => {
     setTimeout(() => {
       setIndexes([]);
       setModified("modified");
+      setProccess(undefined);
     }, DELAY_IN_MS + DELAY_IN_MS * arraysSorted.length);
   };
 
@@ -47,10 +51,12 @@ export const SortingPage: React.FC = () => {
     setTimeout(() => {
       setIndexes([]);
       setModified("modified");
+      setProccess(undefined);
     }, DELAY_IN_MS * (arraysSorted.length + 1));
   };
 
   const sort = (isIncrise: boolean) => {
+    setProccess(isIncrise ? "Increase" : "Decrease");
     setModified("loading");
     if (type === "selection") {
       selectionSort(isIncrise);
@@ -112,12 +118,14 @@ export const SortingPage: React.FC = () => {
             extraClass="mr-6"
             onClick={() => sort(true)}
             disabled={modified === "loading"}
+            isLoader={proccess === "Increase"}
           />
           <Button
             text={"По убыванию"}
             sorting={Direction.Descending}
             onClick={() => sort(false)}
             disabled={modified === "loading"}
+            isLoader={proccess === "Decrease"}
           />
         </div>
         <Button
