@@ -2,13 +2,13 @@
 
 exports[`Кружок без буквы рендериться без ошибок 1`] = `
 <div
-  className="content "
+  className="content"
 >
   <div
     className="text text_type_input text_color_input mb-4 absolute head element"
   />
   <div
-    className="circle   default"
+    className="circle   default  "
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -25,13 +25,13 @@ exports[`Кружок без буквы рендериться без ошибо
 
 exports[`Кружок в состоянии changing рендериться без ошибок 1`] = `
 <div
-  className="content "
+  className="content"
 >
   <div
     className="text text_type_input text_color_input mb-4 absolute head element"
   />
   <div
-    className="circle   default"
+    className="circle   default  "
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -44,13 +44,13 @@ exports[`Кружок в состоянии changing рендериться бе
     className="text text_type_input text_color_input mt-4 absolute tail30 element"
   >
     <div
-      className="content "
+      className="content"
     >
       <div
         className="text text_type_input text_color_input mb-4 absolute head element"
       />
       <div
-        className="circle   changing"
+        className="circle   changing  "
       >
         <p
           className="text text_type_circle text_color_input letter"
@@ -69,13 +69,13 @@ exports[`Кружок в состоянии changing рендериться бе
 
 exports[`Кружок в состоянии default рендериться без ошибок 1`] = `
 <div
-  className="content "
+  className="content"
 >
   <div
     className="text text_type_input text_color_input mb-4 absolute head element"
   />
   <div
-    className="circle   default"
+    className="circle   default  "
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -88,13 +88,13 @@ exports[`Кружок в состоянии default рендериться бе�
     className="text text_type_input text_color_input mt-4 absolute tail30 element"
   >
     <div
-      className="content "
+      className="content"
     >
       <div
         className="text text_type_input text_color_input mb-4 absolute head element"
       />
       <div
-        className="circle   default"
+        className="circle   default  "
       >
         <p
           className="text text_type_circle text_color_input letter"
@@ -113,13 +113,13 @@ exports[`Кружок в состоянии default рендериться бе�
 
 exports[`Кружок в состоянии modified рендериться без ошибок 1`] = `
 <div
-  className="content "
+  className="content"
 >
   <div
     className="text text_type_input text_color_input mb-4 absolute head element"
   />
   <div
-    className="circle   default"
+    className="circle   default  "
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -132,13 +132,13 @@ exports[`Кружок в состоянии modified рендериться бе
     className="text text_type_input text_color_input mt-4 absolute tail30 element"
   >
     <div
-      className="content "
+      className="content"
     >
       <div
         className="text text_type_input text_color_input mb-4 absolute head element"
       />
       <div
-        className="circle   modified"
+        className="circle   modified  "
       >
         <p
           className="text text_type_circle text_color_input letter"
@@ -157,7 +157,7 @@ exports[`Кружок в состоянии modified рендериться бе
 
 exports[`Кружок с head  рендериться без ошибок 1`] = `
 <div
-  className="content "
+  className="content"
 >
   <div
     className="text text_type_input text_color_input mb-4 absolute head string"
@@ -165,7 +165,7 @@ exports[`Кружок с head  рендериться без ошибок 1`] = 
     head
   </div>
   <div
-    className="circle   default"
+    className="circle   default  "
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -182,13 +182,13 @@ exports[`Кружок с head  рендериться без ошибок 1`] = 
 
 exports[`Кружок с index рендериться без ошибок 1`] = `
 <div
-  className="content "
+  className="content"
 >
   <div
     className="text text_type_input text_color_input mb-4 absolute head element"
   />
   <div
-    className="circle   default"
+    className="circle   default  "
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -201,13 +201,13 @@ exports[`Кружок с index рендериться без ошибок 1`] = 
     className="text text_type_input text_color_input mt-4 absolute tail30 element"
   >
     <div
-      className="content "
+      className="content"
     >
       <div
         className="text text_type_input text_color_input mb-4 absolute head element"
       />
       <div
-        className="circle   default"
+        className="circle   default  "
       >
         <p
           className="text text_type_circle text_color_input letter"
@@ -228,19 +228,19 @@ exports[`Кружок с index рендериться без ошибок 1`] = 
 
 exports[`Кружок с react-элементом в head  рендериться без ошибок 1`] = `
 <div
-  className="content "
+  className="content"
 >
   <div
     className="text text_type_input text_color_input mb-4 absolute head element"
   >
     <div
-      className="content "
+      className="content"
     >
       <div
         className="text text_type_input text_color_input mb-4 absolute head element"
       />
       <div
-        className="circle   default"
+        className="circle   default  "
       >
         <p
           className="text text_type_circle text_color_input letter"
@@ -257,7 +257,7 @@ exports[`Кружок с react-элементом в head  рендеритьс�
     </div>
   </div>
   <div
-    className="circle   default"
+    className="circle   default  "
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -274,13 +274,13 @@ exports[`Кружок с react-элементом в head  рендеритьс�
 
 exports[`Кружок с react-элементом в tail рендериться без ошибок 1`] = `
 <div
-  className="content "
+  className="content"
 >
   <div
     className="text text_type_input text_color_input mb-4 absolute head element"
   />
   <div
-    className="circle   default"
+    className="circle   default  "
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -293,13 +293,13 @@ exports[`Кружок с react-элементом в tail рендериться
     className="text text_type_input text_color_input mt-4 absolute tail30 element"
   >
     <div
-      className="content "
+      className="content"
     >
       <div
         className="text text_type_input text_color_input mb-4 absolute head element"
       />
       <div
-        className="circle   default"
+        className="circle   default  "
       >
         <p
           className="text text_type_circle text_color_input letter"
@@ -320,13 +320,13 @@ exports[`Кружок с react-элементом в tail рендериться
 
 exports[`Кружок с tail рендериться без ошибок 1`] = `
 <div
-  className="content "
+  className="content"
 >
   <div
     className="text text_type_input text_color_input mb-4 absolute head element"
   />
   <div
-    className="circle   default"
+    className="circle   default  "
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -345,13 +345,13 @@ exports[`Кружок с tail рендериться без ошибок 1`] = `
 
 exports[`Кружок с буквами рендериться без ошибок 1`] = `
 <div
-  className="content "
+  className="content"
 >
   <div
     className="text text_type_input text_color_input mb-4 absolute head element"
   />
   <div
-    className="circle   default"
+    className="circle   default  "
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -370,13 +370,13 @@ exports[`Кружок с буквами рендериться без ошибо
 
 exports[`Кружок с пропом isSmall ===  true рендериться без ошибок 1`] = `
 <div
-  className="content "
+  className="content"
 >
   <div
     className="text text_type_input text_color_input mb-4 absolute head element"
   />
   <div
-    className="circle   default"
+    className="circle   default  "
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -389,13 +389,13 @@ exports[`Кружок с пропом isSmall ===  true рендериться �
     className="text text_type_input text_color_input mt-4 absolute tail30 element"
   >
     <div
-      className="content "
+      className="content"
     >
       <div
         className="text text_type_input text_color_input mb-4 absolute head element"
       />
       <div
-        className="circle  small default"
+        className="circle  small default  "
       >
         <p
           className="text text_type_circle text_color_input letter"
