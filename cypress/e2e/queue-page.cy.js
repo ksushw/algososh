@@ -1,3 +1,5 @@
+import { changings, circleContent } from "../utils";
+
 describe("should cheeck logic and animation queue", () => {
   beforeEach(function () {
     cy.visit("queue");
@@ -19,21 +21,23 @@ describe("should cheeck logic and animation queue", () => {
   it("should correctly add element in stack", () => {
     cy.get("input").type("1");
     cy.get(".add_button").click();
+    cy.get(changings).as("changings");
+    cy.get(circleContent).as("circleContent");
 
-    cy.get("div[class*=circle_changing]", { timeout: 0 });
-    cy.get("div[class*=circle_changing]").not();
+    cy.get("@changings", { timeout: 0 });
+    cy.get("@changings").not();
 
-    cy.get("[class*=circle_content]").first().contains("head");
-    cy.get("[class*=circle_content]").last().contains("tail");
+    cy.get("@circleContent").first().contains("head");
+    cy.get("@circleContent").last().contains("tail");
 
     cy.get("input").type("2");
     cy.get(".add_button").click();
 
-    cy.get("div[class*=circle_changing]", { timeout: 0 });
-    cy.get("div[class*=circle_changing]").not();
+    cy.get("@changings", { timeout: 0 });
+    cy.get("@changings").not();
 
-    cy.get("[class*=circle_content]").first().contains("head");
-    cy.get("[class*=circle_content]").last().contains("tail");
+    cy.get("@circleContent").first().contains("head");
+    cy.get("@circleContent").last().contains("tail");
   });
 
   it("should correctly delete element from stack", () => {
@@ -47,8 +51,10 @@ describe("should cheeck logic and animation queue", () => {
 
     cy.get(".delete_button").click();
 
-    cy.get("div[class*=circle_circle]").should("contain", "2");
-    cy.get("div[class*=circle_circle]").not("contain", "1");
+    cy.get(circleContent).as("circleContent");
+
+    cy.get("@circleContent").should("contain", "2");
+    cy.get("@circleContent").not("contain", "1");
   });
 
   it("stack should be empty after click button remove ", () => {
@@ -62,6 +68,6 @@ describe("should cheeck logic and animation queue", () => {
 
     cy.get(".remove_button").click();
 
-    cy.get("div[class*=circle_circle]").should("not.exist");
+    cy.get(circleContent).should("not.exist");
   });
 });

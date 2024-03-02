@@ -1,3 +1,7 @@
+import { changings, circleContent, modifieds, circleHead } from "../utils";
+4;
+import { DELAY_IN_MS } from "../../src/constants/delays";
+
 describe("should cheeck disabled buttons", () => {
   beforeEach(function () {
     cy.visit("list");
@@ -29,19 +33,20 @@ describe("should cheeck disabled buttons", () => {
   });
 
   it("should add in tail array", () => {
+    cy.get(modifieds).as("modifieds");
     cy.get(".value_input > input").type("4");
     cy.get(".add_tail_button").click();
 
     cy.get(".circle_3", { timeout: 0 })
       .parent()
-      .find("[class*=circle_head]")
+      .find(circleHead)
       .should("contain", "4");
 
-    cy.wait(1000);
+    cy.wait(DELAY_IN_MS);
 
-    cy.get(" [class*=circle_modified]").should("have.class", "circle_4");
-    cy.wait(1000);
-    cy.get(" [class*=circle_modified]").should("not.exist");
+    cy.get("@modifieds").should("have.class", "circle_4");
+    cy.wait(DELAY_IN_MS);
+    cy.get("@modifieds").should("not.exist");
 
     cy.get(".circle_1").should("contain", "1");
     cy.get(".circle_2").should("contain", "2");
@@ -55,14 +60,15 @@ describe("should cheeck disabled buttons", () => {
 
     cy.get(".circle_1", { timeout: 0 })
       .parent()
-      .find("[class*=circle_head]")
+      .find(circleHead)
       .should("contain", "0");
 
-    cy.wait(1000);
+    cy.wait(DELAY_IN_MS);
+    cy.get(modifieds).as("modifieds");
 
-    cy.get(" [class*=circle_modified]").should("have.class", "circle_1");
-    cy.wait(1000);
-    cy.get(" [class*=circle_modified]").should("not.exist");
+    cy.get("@modifieds").should("have.class", "circle_1");
+    cy.wait(DELAY_IN_MS);
+    cy.get("@modifieds").should("not.exist");
 
     cy.get(".circle_1").should("contain", "0");
     cy.get(".circle_2").should("contain", "1");
@@ -77,23 +83,25 @@ describe("should cheeck disabled buttons", () => {
 
     cy.get(".circle_1", { timeout: 0 })
       .parent()
-      .find("[class*=circle_head]")
+      .find(circleHead)
       .should("contain", "mid");
 
-    cy.get("[class*=circle_modified]").should("have.class", "circle_1");
+    cy.get(modifieds).as("modifieds");
+
+    cy.get("@modifieds").should("have.class", "circle_1");
 
     cy.get(".circle_2", { timeout: 0 })
       .parent()
-      .find("[class*=circle_head]")
+      .find(circleHead)
       .should("contain", "mid");
 
-    cy.get("[class*=circle_modified]").should("have.class", "circle_2");
+    cy.get("@modifieds").should("have.class", "circle_2");
 
-    cy.get(" [class*=circle_modified]").should("not.exist");
+    cy.get("@modifieds").should("not.exist");
 
     cy.get(".circle_3", { timeout: 0 })
       .parent()
-      .find("[class*=circle_head]")
+      .find(circleHead)
       .should("contain", "mid");
 
     cy.get(".circle_1").should("contain", "1");
@@ -109,7 +117,7 @@ describe("should cheeck disabled buttons", () => {
 
     cy.get(".circle_1", { timeout: 0 })
       .parent()
-      .find("[class*=circle_head]")
+      .find(circleHead)
       .should("contain", "1");
 
     cy.get(".circle_1").should("contain", "2");
@@ -123,7 +131,7 @@ describe("should cheeck disabled buttons", () => {
 
     cy.get(".circle_3", { timeout: 0 })
       .parent()
-      .find("[class*=circle_head]")
+      .find(circleHead)
       .should("contain", "3");
 
     cy.get(".circle_1").should("contain", "1");
@@ -137,13 +145,13 @@ describe("should cheeck disabled buttons", () => {
     cy.get(".circle_1", { timeout: 0 }).should("not.include.text", "1");
     cy.get(".circle_1", { timeout: 0 })
       .parent()
-      .find("[class*=circle_head]")
+      .find(circleHead)
       .should("contain", "1");
-    cy.wait(1000);
+    cy.wait(DELAY_IN_MS);
     cy.get(".circle_2", { timeout: 0 }).should("not.include.text", "2");
     cy.get(".circle_2", { timeout: 0 })
       .parent()
-      .find("[class*=circle_head]")
+      .find(circleHead)
       .should("contain", "2");
 
     cy.get(".circle_1").should("contain", "1");

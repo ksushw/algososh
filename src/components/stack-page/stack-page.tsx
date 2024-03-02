@@ -13,7 +13,6 @@ class Stack<T> implements IStack<T> {
   private container: T[] = [];
 
   push = (item: T): void => {
-    console.log(this.container, item);
     this.container.push(item);
   };
 
@@ -44,7 +43,6 @@ export const StackPage: React.FC = () => {
   const addItem = () => {
     setProccess("Add");
     queue.push(value);
-    console.log(queue.getStack());
     setAmount(amount + 1);
     setTail(tail + 1);
     setChanging(tail + 1);

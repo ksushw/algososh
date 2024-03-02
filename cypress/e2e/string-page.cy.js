@@ -1,3 +1,6 @@
+import { changings, modifieds } from "../utils";
+import { DELAY_IN_MS } from "../../src/constants/delays";
+
 describe("should cheeck disablead button string page", () => {
   before(function () {
     cy.visit("recursion");
@@ -17,33 +20,30 @@ describe("should cheeck string page", () => {
   });
 
   it("Should animation change", function () {
-    cy.wait(1000);
-    cy.get("div[class*=circle_changing]", { timeout: 0 }).should(
-      "satisfy",
-      ($el) => {
-        const classListFirst = Array.from($el[0].classList);
-        const classListSecond = Array.from($el[1].classList);
-        return (
-          classListFirst.includes("circle_1") &&
-          classListSecond.includes("circle_6")
-        );
-      }
-    );
+    cy.get(changings).as("changings");
 
-    cy.wait(1000);
-    cy.get("div[class*=circle_changing]", { timeout: 0 }).should(
-      "satisfy",
-      ($el) => {
-        const classListFirst = Array.from($el[0].classList);
-        const classListSecond = Array.from($el[1].classList);
-        return (
-          classListFirst.includes("circle_2") &&
-          classListSecond.includes("circle_5")
-        );
-      }
-    );
+    cy.get("@changings", { timeout: 0 }).should("satisfy", ($el) => {
+      const classListFirst = Array.from($el[0].classList);
+      const classListSecond = Array.from($el[1].classList);
+      return (
+        classListFirst.includes("circle_1") &&
+        classListSecond.includes("circle_6")
+      );
+    });
 
-    cy.get("div[class*=circle_modified]", { timeout: 0 })
+    cy.wait(DELAY_IN_MS);
+    cy.get(modifieds).as("modifieds");
+
+    cy.get("@changings", { timeout: 0 }).should("satisfy", ($el) => {
+      const classListFirst = Array.from($el[0].classList);
+      const classListSecond = Array.from($el[1].classList);
+      return (
+        classListFirst.includes("circle_2") &&
+        classListSecond.includes("circle_5")
+      );
+    });
+
+    cy.get("@modifieds", { timeout: 0 })
       .should("satisfy", ($el) => {
         const classListFirst = Array.from($el[0].classList);
         const classListSecond = Array.from($el[1].classList);
@@ -57,19 +57,16 @@ describe("should cheeck string page", () => {
         expect($el.eq(1)).to.contain("p");
       });
 
-    cy.wait(1000);
-    cy.get("div[class*=circle_changing]", { timeout: 0 }).should(
-      "satisfy",
-      ($el) => {
-        const classListFirst = Array.from($el[0].classList);
-        const classListSecond = Array.from($el[1].classList);
-        return (
-          classListFirst.includes("circle_3") &&
-          classListSecond.includes("circle_4")
-        );
-      }
-    );
-    cy.get("div[class*=circle_modified]", { timeout: 0 })
+    cy.wait(DELAY_IN_MS);
+    cy.get("@changings", { timeout: 0 }).should("satisfy", ($el) => {
+      const classListFirst = Array.from($el[0].classList);
+      const classListSecond = Array.from($el[1].classList);
+      return (
+        classListFirst.includes("circle_3") &&
+        classListSecond.includes("circle_4")
+      );
+    });
+    cy.get("@modifieds", { timeout: 0 })
       .should("satisfy", ($el) => {
         const classListFirst = Array.from($el[1].classList);
         const classListSecond = Array.from($el[2].classList);
@@ -83,8 +80,8 @@ describe("should cheeck string page", () => {
         expect($el.eq(2)).to.contain("r");
       });
 
-    cy.wait(1000);
-    cy.get("div[class*=circle_modified]", { timeout: 0 })
+    cy.wait(DELAY_IN_MS);
+    cy.get("@modifieds", { timeout: 0 })
       .should("satisfy", ($el) => {
         const classListFirst = Array.from($el[2].classList);
         const classListSecond = Array.from($el[3].classList);

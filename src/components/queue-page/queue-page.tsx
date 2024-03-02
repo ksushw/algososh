@@ -15,7 +15,6 @@ class Stack<T> implements IQueue<T> {
   private start: number = 0;
 
   enqueue = (item: T): void => {
-    console.log(item, this.container);
     if (this.tail >= 6) {
       this.container[0] = item;
       this.tail = 0;

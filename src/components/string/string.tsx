@@ -53,7 +53,6 @@ export const StringComponent: React.FC = () => {
       ]);
       setModified("modified");
     }, (1 + start) * DELAY_IN_MS);
-    console.log("end");
   };
 
   return (

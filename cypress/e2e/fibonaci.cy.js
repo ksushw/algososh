@@ -1,3 +1,5 @@
+import { circleContent } from "../utils";
+
 describe("should cheeck animation and logic fibonaci", () => {
   beforeEach(function () {
     cy.visit("fibonacci");
@@ -11,7 +13,7 @@ describe("should cheeck animation and logic fibonaci", () => {
   it("should cheeck correct numbers", () => {
     cy.get("input").type(5);
     cy.get(".calculate_button").click();
-    cy.get("div[class*=circle_circle]").should(($el) => {
+    cy.get(circleContent).should(($el) => {
       expect($el.eq(0)).to.contain("1");
       expect($el.eq(1)).to.contain("1");
       expect($el.eq(2)).to.contain("2");

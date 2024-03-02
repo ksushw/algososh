@@ -1,3 +1,5 @@
+import { changings, circleContent } from "../utils";
+
 describe("should cheeck logic and animation stack", () => {
   beforeEach(function () {
     cy.visit("stack");
@@ -19,29 +21,31 @@ describe("should cheeck logic and animation stack", () => {
     cy.get(".add_button").click();
 
     cy.get(".delete_button").click();
-
-    cy.get("div[class*=circle_circle]").should("contain", "1");
-    cy.get("div[class*=circle_circle]").not("contain", "12");
+    cy.get(circleContent).as("circleContent");
+    cy.get("@circleContent").should("contain", "1");
+    cy.get("@circleContent").not("contain", "12");
   });
 
   it("should correctly add element in stack", () => {
     cy.get("input").type("1");
     cy.get(".add_button").click();
+    cy.get(changings).as("changings");
+    cy.get(circleContent).as("circleContent");
 
-    cy.get("div[class*=circle_changing]", { timeout: 0 });
-    cy.get("div[class*=circle_changing]").not();
+    cy.get("@changings", { timeout: 0 });
+    cy.get("@changings").not();
 
-    cy.get("[class*=circle_content]").first().contains("top");
-    cy.get("[class*=circle_content]").last().contains("tail");
+    cy.get("@circleContent").first().contains("top");
+    cy.get("@circleContent").last().contains("tail");
 
     cy.get("input").type("1");
     cy.get(".add_button").click();
 
-    cy.get("div[class*=circle_changing]", { timeout: 0 });
-    cy.get("div[class*=circle_changing]").not();
+    cy.get("@changings", { timeout: 0 });
+    cy.get("@changings").not();
 
-    cy.get("[class*=circle_content]").first().contains("top");
-    cy.get("[class*=circle_content]").last().contains("tail");
+    cy.get("@circleContent").first().contains("top");
+    cy.get("@circleContent").last().contains("tail");
   });
 
   it("stack should be empty after click button remove ", () => {
@@ -53,6 +57,6 @@ describe("should cheeck logic and animation stack", () => {
 
     cy.get(".remove_button").click();
 
-    cy.get("div[class*=circle_circle]").should("not.exist");
+    cy.get(circleContent).should("not.exist");
   });
 });
