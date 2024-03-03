@@ -25,3 +25,8 @@
   align-items: center;
   gap: 48px 16px;
 }
+
+.circleWithArrow {
+  display: flex;
+  align-items: center;
+}

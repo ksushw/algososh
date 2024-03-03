@@ -7,6 +7,7 @@ import { Circle } from "../ui/circle/circle";
 
 import { DELAY_IN_MS } from "../../constants/delays";
 import { ReverseString, BackStringColour } from "./utils";
+import uuid from "react-uuid";
 
 export const StringComponent: React.FC = () => {
   const [string, setString] = useState<string[]>([]);
@@ -32,7 +33,6 @@ export const StringComponent: React.FC = () => {
   const reverseString = () => {
     setModified("loading");
     const allString = ReverseString(string);
-
     let start = 0;
     let end = string.length - 1;
 
@@ -68,7 +68,8 @@ export const StringComponent: React.FC = () => {
           text={"Развернуть"}
           onClick={reverseString}
           isLoader={modified === "loading"}
-          disabled={modified === "modified"}
+          disabled={modified === "modified" || !string.length}
+          extraClass="button_reverse"
         />
       </div>
       <div className={styles.circles}>
@@ -76,7 +77,8 @@ export const StringComponent: React.FC = () => {
           <Circle
             letter={item}
             state={BackStringColour(index, indexes, modified)}
-            key={index}
+            key={uuid()}
+            extraClass={`circle_${index + 1}`}
           />
         ))}
       </div>

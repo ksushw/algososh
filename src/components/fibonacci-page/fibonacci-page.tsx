@@ -6,6 +6,7 @@ import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { CanculateFibonacci } from "./utils";
+import uuid from "react-uuid";
 
 export const FibonacciPage: React.FC = () => {
   const [string, setString] = useState<string>("");
@@ -14,7 +15,7 @@ export const FibonacciPage: React.FC = () => {
 
   const changeString = (e: ChangeEvent<HTMLInputElement>) => {
     setModified("noneModified");
-    const newValue = e.target.value.length === 19 ? string : e.target.value;
+    const newValue = Number(e.target.value) > 19 ? string : e.target.value;
     setString(newValue);
   };
 
@@ -49,12 +50,13 @@ export const FibonacciPage: React.FC = () => {
           text={"Рассчитать"}
           onClick={() => calculate(Number(string))}
           isLoader={modified === "loading"}
-          disabled={modified === "modified"}
+          disabled={modified === "modified" || !string.length}
+          extraClass="calculate_button"
         />
       </div>
       <div className={styles.circles}>
         {fibonacci.map((item, index) => (
-          <Circle letter={String(item)} index={index} key={index} />
+          <Circle letter={String(item)} index={index} key={uuid()} />
         ))}
       </div>
     </SolutionLayout>
